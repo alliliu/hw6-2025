@@ -32,59 +32,68 @@ document.querySelector("#pause").addEventListener("click", function() {
 });
 
 // SLOW DOWN: Slow the current video speed by 10% each time the button is clicked and log the new speed to the console
+
+// Playback rate citation: https://www.w3schools.com/Tags/av_prop_playbackrate.asp
 document.querySelector("#slower").addEventListener("click", function() {
 	
 	console.log("Slow Down function activated");
 
-	let videoSpeed = video.playbackSpeed;
-	video.playbackSpeed = videoSpeed * 0.9; // slow down by 10% each time
+	let videoSpeed = video.playbackRate;
+	video.playbackRate = videoSpeed * 0.9; // slow down by 10% each time
 
-	console.log("Updated New Speed: "+ video.playbackSpeed);
+	console.log("Updated New Speed: "+ video.playbackRate);
 });
 
 // SPEED UP: Increase the current video speed each time the button is clicked and log the new speed to the console. Change it by an amount proportional to the slow down. CHECK THIS!! If you slow down three times and then speed up three times you should be within 5 digits of 100% again.
+
+// Playback rate citation: https://www.w3schools.com/Tags/av_prop_playbackrate.asp
 document.querySelector("#faster").addEventListener("click", function() {
 	
 	console.log("Speed Up function activated");
 
-	let videoSpeed = video.playbackSpeed; // get current speed
-	video.playbackSpeed = videoSpeed * (1 / 0.9); // increase speed proportionally
+	let videoSpeed = video.playbackRate; // get current speed
+	video.playbackRate = videoSpeed * (1 / 0.9); // increase speed proportionally
 
-	console.log("Updated New Speed: " + video.playbackSpeed);
+	console.log("Updated New Speed: " + video.playbackRate);
 });
 
 // SKIP AHEAD: Advance the current video by 10 seconds. If the video length has been exceeded go back to the start of the video - no farther. Log the current location of the video.
+
+// Current Time property citation: https://www.w3schools.com/TAGs/av_prop_currenttime.asp
+// Duration property citation: https://www.w3schools.com/tags/av_prop_duration.asp
 document.querySelector("#skip").addEventListener("click", function() {
 	
 	console.log("Skip Ahead function activated");
 
-	let videoLength = video.length;
-	let videoCurrentLocation = video.currentLocation; // current location of video
+	let videoLength = video.duration;
+	let videoCurrentLocation = video.currentTime; // current location of video
 
 	if ((videoCurrentLocation + 10) <= videoLength) { // check if skipped ahead by 10s on the current location of video
-		video.currentLocation = videoCurrentLocation + 10; // update video current time by adding 10s
+		video.currentTime = videoCurrentLocation + 10; // update video current time by adding 10s
 	}
 	else {
-		video.currentLocation = 0; // exceeded video length; go to start of video
+		video.currentTime = 0; // exceeded video length; go to start of video
 	}
 
-	console.log("Current time updated: " + video.currentLocation);
+	console.log("Current time updated: " + video.currentTime);
 });
 
 // MUTE: Mute/unmute the video and update the text in the button
+
+// Muted property citation: https://www.w3schools.com/tags/av_prop_muted.asp
 document.querySelector("#mute").addEventListener("click", function() {
 	
 	console.log("Mute/Unmute functon activated");
 
-	if (video.mute) { // if video is currently muted (TRUE)
+	if (video.muted) { // if video is currently muted (TRUE)
 		console.log("Unmute");
-		video.mute = false; // change to unmute video
+		video.muted = false; // change to unmute video
 		document.querySelector("#mute").textContent = "Mute"; // update button text to show "Mute"
 	}
 
 	else {
 		console.log("Mute"); // current status of video is unmuted
-		video.mute = true;  // mute the video
+		video.muted = true;  // mute the video
 		document.querySelector("#mute").textContent = "Unmute";
 	}
 });
@@ -104,7 +113,7 @@ document.querySelector("#slider").addEventListener("change", function() {
 
 // STYLED: Utilize the existing oldSchool class on the video element
 document.querySelector("#vintage").addEventListener("click", function() {
-	
+
 	console.log("oldSchool function activated");
 
 	video.classList.add("oldSchool");
